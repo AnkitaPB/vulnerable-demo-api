@@ -1,0 +1,33 @@
+name: Claude AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Review this pull request. Focus on:
+            - Bugs and logic errors
+            - Security issues (input validation, injection, auth)
+            - Spring Boot / REST API best practices
+            - Missing or weak test coverage
+            Follow the standards in CLAUDE.md. Post inline comments on the
+            specific lines you have concerns about, and leave a short summary.
+          claude_args: "--max-turns 8"
