@@ -1,4 +1,5 @@
 name: Claude AI Code Review
+
 on:
   pull_request:
     types: [opened, synchronize]
@@ -22,11 +23,12 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
-            Review this pull request. Focus on:
+            Review this pull request using `gh pr review` to leave a formal
+            review with inline comments on the specific lines you have
+            concerns about, rather than a single summary comment. Focus on:
             - Bugs and logic errors
-            - Security issues (input validation, injection, auth)
+            - Security issues (input validation, injection, auth, secrets)
             - Spring Boot / REST API best practices
             - Missing or weak test coverage
-            Follow the standards in CLAUDE.md. Post inline comments on the
-            specific lines you have concerns about, and leave a short summary.
+            Follow the standards in CLAUDE.md.
           claude_args: "--max-turns 8"
