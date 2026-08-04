@@ -1,13 +1,4 @@
 name: Claude AI Code Review
-prompt: |
-  Review this pull request using `gh pr review` to leave a formal review
-  with inline comments on the specific lines you have concerns about,
-  rather than a single summary comment. Focus on:
-  - Bugs and logic errors
-  - Security issues (input validation, injection, auth, secrets)
-  - Spring Boot / REST API best practices
-  - Missing or weak test coverage
-  Follow the standards in CLAUDE.md.
 on:
   pull_request:
     types: [opened, synchronize]
